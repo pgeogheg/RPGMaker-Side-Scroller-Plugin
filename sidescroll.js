@@ -40,7 +40,9 @@
       var thisy = this._y;
       var left = Input.isPressed('left');
       var right = Input.isPressed('right');
+      var up = Input.isPressed('up');
       if (this._gravityJumping > 0) {
+        if (!up) this._gravityJumping = 0;
         if (left && !right) {
           this.gravityJump(4);
         } else if (!left && right) {
@@ -165,7 +167,7 @@
       var x1 = Math.floor(x), y1 = Math.floor(y);
       var x2 = $gameMap.xWithDirection(x1, d);
       var y2 = $gameMap.yWithDirection(y1, d);
-      if (!$gameMap.isValid(x2, y2)) {
+      if (!$gameMap.isValid(x2, y2) && !((d === 4 && x !== x1) || (d === 8 && y !== y1))) {
         return false;
       }
       if (this.isThrough() || this.isDebugThrough()) {
